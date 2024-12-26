@@ -1,5 +1,5 @@
-# Large-Language-Model-Groq-
-Overview
+# Portfolio Shortlisting
+# Overview
 
 The Portfolio Shortlisting project is an AI-powered system designed to streamline the recruitment process. This application automatically evaluates candidates' profiles and sends personalized emails to individuals whose qualifications match a given job description. By leveraging cutting-edge technologies, it delivers efficiency and precision in candidate shortlisting.
 
