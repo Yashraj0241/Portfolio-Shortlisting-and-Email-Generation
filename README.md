@@ -2,12 +2,15 @@
 
 ## Overview
 This project implements a **Portfolio Shortlisting System** that leverages **Generative AI** and **Large Language Models (LLMs)**. The system evaluates student portfolios against job requirements and automates the shortlisting process, sending the results via email. 
+---
 
 ## The technology stack includes:
 
 - **LLM Model**: Predefined models like `llama-3.1-70b-versatile` from the ChatGroq cloud platform.
 - **Database**: `ChromaDB` to store portfolio data as embeddings and metadata.
 - **LangChain**: To handle prompt structuring and LLM interaction.
+
+---
 
 ## Features
 - Use of pre-trained LLM models.
@@ -17,21 +20,7 @@ This project implements a **Portfolio Shortlisting System** that leverages **Gen
 
 ---
 
-## Installation
 
-### Prerequisites
-1. Python 3.8 or higher.
-2. Install dependencies:
-   ```bash
-   pip install langchain chromadb openai
-   ```
-3. Access to the ChatGroq cloud platform API.
-
-### Clone the Repository
-```bash
-git clone https://github.com/your-repository/portfolio-shortlisting.git
-cd portfolio-shortlisting
-```
 
 ---
 
@@ -40,28 +29,25 @@ cd portfolio-shortlisting
 ### Environment Variables
 Create a `.env` file in the project root with the following variables:
 ```env
-API_KEY=<Your ChatGroq API Key>
+API_KEY=<Your Groq API Key>
 MODEL_NAME=llama-3.1-70b-versatile
 DATABASE_PATH=./chroma_db
-MAX_TOKENS=1000
-TEMPERATURE=0.7
-MAX_RETRIES=3
-SMTP_SERVER=smtp.example.com
-EMAIL_USER=<Your Email Address>
-EMAIL_PASSWORD=<Your Email Password>
+MAX_TOKENS=None
+TEMPERATURE=0.5
+MAX_RETRIES=2
 ```
 
 ### Database Setup
 Initialize the ChromaDB database:
 ```python
-from chromadb.config import Settings
-from chromadb import Client
+pip install chromadb
+import chromadb                                    
 
-# Initialize ChromaDB
-client = Client(Settings(persist_directory='./chroma_db'))
+# Initialize client instance in ChromaDB
+chroma_client = chromadb.Client()
 
 # Create Collection
-collection = client.create_collection("my_collection")
+collection = chroma_client.create_collection(name="my_collection")
 ```
 
 ---
@@ -70,33 +56,37 @@ collection = client.create_collection("my_collection")
 
 ### 1. Initialize LLM Model
 ```python
-from langchain.llms import OpenAI
+from langchain_groq import ChatGroq
 
-llm = OpenAI(
-    model_name="llama-3.1-70b-versatile",
-    api_key="<Your API Key>",
-    max_tokens=1000,
-    temperature=0.7,
-    max_retries=3
+llm = ChatGroq(
+    model="llama-3.1-70b-versatile",       
+    temperature=0.5,                       
+    max_tokens=None,                       
+    timeout=None,                           
+    max_retries=2,                         
+    api_key="your groq model API key"
 )
 ```
 
 ### 2. Use ChatPromptTemplate
 ```python
-from langchain.prompts import ChatPromptTemplate
+from langchain_core.prompts import ChatPromptTemplate 
 
 chat_prompt = ChatPromptTemplate.from_messages([
     {"role": "system", "content": "You are an AI assistant helping to evaluate portfolios."},
-    {"role": "user", "content": "Provide portfolio details for evaluation."}
+    {"role": "user", "content": "input"}
 ])
 ```
 
 ### 3. Store Portfolio Data in ChromaDB
 ```python
-import chromadb
+import chromadb                                    
 
-client = chromadb.Client(Settings(persist_directory='./chroma_db'))
-collection = client.get_collection("my_collection")
+# Initialize client instance in ChromaDB
+chroma_client = chromadb.Client()
+
+# Create Collection
+collection = chroma_client.create_collection(name="my_collection")
 
 # Example data
 portfolio_data = {
@@ -116,10 +106,14 @@ collection.add(
 
 ### 4. Combine Prompt with LLM
 ```python
-from langchain.chains import LLMChain
 
-chain = LLMChain(prompt=chat_prompt, llm=llm)
-response = chain.run("Evaluate this portfolio for the job requirements.")
+chain = chat_prompt | llm
+result=chain.invoke(
+    {
+        "input": job_post,
+        
+    }
+)
 ```
 
 
