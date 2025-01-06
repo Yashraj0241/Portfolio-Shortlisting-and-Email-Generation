@@ -1,136 +1,141 @@
-# Portfolio Shortlisting System
+# Portfolio Shortlisting and Email Generation
 
-## Overview
-This project implements a **Portfolio Shortlisting System** that leverages **Generative AI** and **Large Language Models (LLMs)**. The system evaluates student portfolios against job requirements and automates the shortlisting process, sending the results via email. 
+## Overview 
+
+This Streamlit application automates the shortlisting of portfolios based on user queries and generates emails to recruitment teams. It leverages the power of **LangChain** and **LLM models** for natural language understanding and generative AI capabilities.
+
 ---
 
-## The technology stack includes:
 
-- **LLM Model**: Predefined models like `llama-3.1-70b-versatile` from the ChatGroq cloud platform.
-- **Database**: `ChromaDB` to store portfolio data as embeddings and metadata.
-- **LangChain**: To handle prompt structuring and LLM interaction.
+## **Table of Contents**
 
+- [Overview ](#Overview)
+- [Features](#features)
+- [Prerequisites](#Prerequisites)
+- [Setup and Installation](#setup-and-installation)
+- [File Structure](#File Structure
+- [Technologies Used](#technologies-used)
+- [Usage](#usage)
+- [Result](#Result)
 ---
 
 ## Features
-- Use of pre-trained LLM models.
-- Dynamic conversational prompts via `ChatPromptTemplate`.
-- Storage of portfolio data as vector embeddings using `ChromaDB`.
-- Job-based portfolio evaluation and automated email notifications.
+
+- **Multi-format Portfolio Uploads**: Supports CSV, Excel, PDF, and plain text files.
+- **Query Portfolios**: Users can ask specific questions about uploaded portfolios.
+- **Vector-Based Search**: Efficient search and retrieval using embeddings.
+- **Automated Email Generation**: Generates professional emails to recruiters based on shortlisted portfolios.
 
 ---
 
+## Prerequisites
 
+Ensure the following tools and libraries are installed:
 
----
-
-## Configuration
-
-### Environment Variables
-Create a `.env` file in the project root with the following variables:
-```env
-API_KEY=<Your Groq API Key>
-MODEL_NAME=llama-3.1-70b-versatile
-DATABASE_PATH=./chroma_db
-MAX_TOKENS=None
-TEMPERATURE=0.5
-MAX_RETRIES=2
-```
-
-### Database Setup
-Initialize the ChromaDB database:
-```python
-pip install chromadb
-import chromadb                                    
-
-# Initialize client instance in ChromaDB
-chroma_client = chromadb.Client()
-
-# Create Collection
-collection = chroma_client.create_collection(name="my_collection")
-```
+- **Python 3.8+**
+- **Streamlit**: For building and running the application.
+- **LangChain**: For LLM-based workflows.
+- **FAISS**: For vector-based document retrieval.
+- **Google Generative AI Embeddings**: For embedding creation.
+- **PyPDFLoader**: For parsing PDF documents.
+- **dotenv**: For managing API keys and environment variables.
 
 ---
 
-## Code Workflow
+## Setup Instructions
 
-### 1. Initialize LLM Model
-```python
-from langchain_groq import ChatGroq
+1. **Clone the Repository**  
+   ```bash
+   git clone 
+   cd portfolio-shortlisting
+   ```
 
-llm = ChatGroq(
-    model="llama-3.1-70b-versatile",       
-    temperature=0.5,                       
-    max_tokens=None,                       
-    timeout=None,                           
-    max_retries=2,                         
-    api_key="your groq model API key"
-)
+2. **Install Dependencies**  
+   Create a virtual environment and install required Python libraries.  
+   ```bash
+   python3 -m venv venv
+   source venv/bin/activate  # For Linux/macOS
+   venv\Scripts\activate     # For Windows
+
+   pip install -r requirements.txt
+   ```
+
+3. **Set Environment Variables**  
+   Create a `.env` file in the root directory and add the required API keys:
+   ```env
+   GROQ_API_KEY=your_groq_api_key
+   GOOGLE_API_KEY=your_google_api_key
+   ```
+
+4. **Run the Application**  
+   Start the Streamlit app:  
+   ```bash
+   streamlit run app.py
+   ```
+---
+
+
+## File Structure
+
 ```
-
-### 2. Use ChatPromptTemplate
-```python
-from langchain_core.prompts import ChatPromptTemplate 
-
-chat_prompt = ChatPromptTemplate.from_messages([
-    {"role": "system", "content": "You are an AI assistant helping to evaluate portfolios."},
-    {"role": "user", "content": "input"}
-])
+portfolio-shortlisting/
+│
+├── app.py                # Main application file
+├── requirements.txt      # Python dependencies
+├── .env                  # Environment variables (ignored in version control)
+├── README.md             # Documentation file
+└── sample-data/          # Sample files for testing
+    ├── portfolios.csv
+    ├── portfolios.xlsx
+    ├── portfolios.pdf
+    └── portfolios.txt
 ```
+---
 
-### 3. Store Portfolio Data in ChromaDB
-```python
-import chromadb                                    
+## Technologies Used
 
-# Initialize client instance in ChromaDB
-chroma_client = chromadb.Client()
+The required dependencies are listed in `requirements.txt`. Key libraries include:
 
-# Create Collection
-collection = chroma_client.create_collection(name="my_collection")
+- `streamlit`
+- `langchain`
+- `faiss-cpu`
+- `langchain-community`
+- `langchain-google-genai`
+- `pandas`
+- `dotenv`
 
-# Example data
-portfolio_data = {
-    "student_id": "12345",
-    "portfolio": "Sample portfolio content here",
-    "job_post": "Job description here"
-}
-
-# Store data
-vector = llm.embed_text(portfolio_data["portfolio"])
-collection.add(
-    embeddings=[vector],
-    metadatas=[{"student_id": portfolio_data["student_id"]}],
-    documents=[portfolio_data["portfolio"]]
-)
+Install them using:
+```bash
+pip install -r requirements.txt
 ```
-
-### 4. Combine Prompt with LLM
-```python
-
-chain = chat_prompt | llm
-result=chain.invoke(
-    {
-        "input": job_post,
-        
-    }
-)
-```
-
-
 
 ---
 
-## How It Works
+## Usage
 
-1. **Input**: The user uploads portfolio data and job descriptions.
-2. **Processing**:
-   - Portfolio content is stored in `ChromaDB`.
-   - `ChatPromptTemplate` structures the conversation for evaluation.
-   - The LLM evaluates the portfolio against the job description.
-3. **Output**:
-   - Shortlisted results are determined.
-   - Notifications are sent via email.
+1. **Upload Portfolio Files**  
+   Upload one or more portfolio files in the supported formats (CSV, Excel, PDF, or plain text).
+
+2. **Create Vector Store**  
+   Click the **"Create Vector Store"** button to process the uploaded files.
+
+3. **Ask Questions**  
+   Enter a query related to the portfolios in the input box.
+
+4. **View Results**  
+   - The application will display the retrieved answers.
+   - It also generates an email to recruiters with details of shortlisted candidates.
 
 ---
+
+## Supported File Formats
+
+- **CSV**: Each row should contain portfolio details like name, skills, experience, and location.
+- **Excel**: Similar structure as CSV.
+- **PDF**: The application parses text content for processing.
+- **Text**: Plain text documents.
+
+---
+
 
 
