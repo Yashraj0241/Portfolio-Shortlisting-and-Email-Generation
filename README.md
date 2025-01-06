@@ -45,7 +45,7 @@ Ensure the following tools and libraries are installed:
 
 1. **Clone the Repository**  
    ```bash
-   git clone 
+   git clone https://github.com/Yashraj0241/Portfolio-Shortlisting-and-Email-Generation
    cd portfolio-shortlisting
    ```
 
