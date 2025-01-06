@@ -1,0 +1,23 @@
+# Streamlit for the app interface
+streamlit
+
+# Langchain for integrating language models
+langchain
+
+# Langchain Groq for Groq-based language model integration
+langchain_groq
+
+# Langchain Community for additional vector stores and document loaders
+langchain_community
+
+# Langchain Google Generative AI for embedding-based models
+langchain_google_genai
+
+# Python Dotenv to manage environment variables
+python-dotenv
+
+# Pandas for data manipulation and CSV file handling
+pandas
+
+# FAISS for efficient vector storage and search
+faiss-cpu
