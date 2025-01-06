@@ -1,10 +1,10 @@
 # Portfolio Shortlisting and Email Generation
-
+---
 ## Overview 
 
-Developed a Streamlit-based web application that leverages LangChain and Google Generative AI to automate the shortlisting of candidates' portfolios and generate professional emails. The system supports file uploads (CSV, Excel, PDF, Text) and processes candidate data into vector embeddings using FAISS for fast retrieval. It enables users to ask context-specific questions about portfolios and generates emails for recruitment teams based on shortlisted candidates. Implemented efficient data processing, NLP-based query handling, and automated email generation to streamline the recruitment workflow.
----
+Developed a Streamlit-based web app using LangChain and Google Generative AI to automate the shortlisting of candidates' portfolios and generate professional emails. The app supports file uploads (CSV, Excel, PDF, Text) and processes candidate data into vector embeddings using FAISS for quick retrieval. Users can ask questions about portfolios and generate emails for recruitment teams based on shortlisted candidates. The system includes efficient data processing, NLP-based query handling, and automated email generation to improve the recruitment process.
 
+---
 
 ## **Table of Contents**
 
