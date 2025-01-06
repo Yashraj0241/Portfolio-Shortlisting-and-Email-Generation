@@ -13,7 +13,7 @@ This Streamlit application automates the shortlisting of portfolios based on use
 - [Features](#features)
 - [Prerequisites](#Prerequisites)
 - [Setup and Installation](#setup-and-installation)
-- [File Structure](#File Structure
+- [File Structure](#File_Structure)
 - [Technologies Used](#technologies-used)
 - [Usage](#usage)
 - [Result](#Result)
@@ -42,7 +42,7 @@ Ensure the following tools and libraries are installed:
 
 ---
 
-## Setup Instructions
+## Setup and Installation
 
 1. **Clone the Repository**  
    ```bash
@@ -82,7 +82,7 @@ portfolio-shortlisting/
 │
 ├── app.py                # Main application file
 ├── requirements.txt      # Python dependencies
-├── .env                  # Environment variables (ignored in version control)
+├── .env                  # Environment variables 
 ├── README.md             # Documentation file
 └── sample-data/          # Sample files for testing
     ├── portfolios.csv
@@ -114,7 +114,7 @@ pip install -r requirements.txt
 ## Usage
 
 1. **Upload Portfolio Files**  
-   Upload one or more portfolio files in the supported formats (CSV, Excel, PDF, or plain text).
+   Upload portfolio file in the supported formats (CSV, Excel, PDF, or plain text).
 
 2. **Create Vector Store**  
    Click the **"Create Vector Store"** button to process the uploaded files.
