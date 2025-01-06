@@ -2,8 +2,7 @@
 
 ## Overview 
 
-This Streamlit application automates the shortlisting of portfolios based on user queries and generates emails to recruitment teams. It leverages the power of **LangChain** and **LLM models** for natural language understanding and generative AI capabilities.
-
+Developed a Streamlit-based web application that leverages LangChain and Google Generative AI to automate the shortlisting of candidates' portfolios and generate professional emails. The system supports file uploads (CSV, Excel, PDF, Text) and processes candidate data into vector embeddings using FAISS for fast retrieval. It enables users to ask context-specific questions about portfolios and generates emails for recruitment teams based on shortlisted candidates. Implemented efficient data processing, NLP-based query handling, and automated email generation to streamline the recruitment workflow.
 ---
 
 
