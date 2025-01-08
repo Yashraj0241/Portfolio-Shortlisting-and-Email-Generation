@@ -21,3 +21,4 @@ pandas
 
 # FAISS for efficient vector storage and search
 faiss-cpu
+gunicorn
